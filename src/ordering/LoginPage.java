@@ -56,10 +56,10 @@ public class LoginPage extends JFrame {
         loginButton.setBorderPainted(false);
         panel.add(loginButton);
 
-        // 로그인 버튼 클릭 시 메인 페이지로 이동
+        // 로그인 버튼 클릭 시 메뉴 페이지로 이동
         loginButton.addActionListener(e -> {
             dispose();
-            new MainPage().setVisible(true);
+            new MenuPage().setVisible(true);
         });
 
         add(panel);
