@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuPage extends JFrame {
+    private JButton selectedButton;
+
     public MenuPage() {
         setTitle("Starbucks 메뉴");
         setSize(1024, 768);
@@ -13,17 +15,24 @@ public class MenuPage extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setBackground(new Color(30, 185, 102));
 
         // 상단 탭 패널
-        JPanel tabPanel = new JPanel(new GridLayout(1, 5));
+        JPanel tabPanel = new JPanel(new GridBagLayout());
+        tabPanel.setBackground(new Color(30, 185, 102));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+
         String[] tabs = {"COFFEE", "NON-COFFEE", "FOOD", "PRODUCT", "MY-SHOP"};
         for (String tab : tabs) {
             JButton tabButton = new JButton(tab);
             tabButton.setBackground(new Color(30, 185, 102));
-            tabButton.setForeground(Color.WHITE);
+            tabButton.setForeground(new Color(30, 185, 102));
             tabButton.setFont(new Font("pretendard", Font.BOLD, 16));
-            tabPanel.add(tabButton);
+            tabButton.setPreferredSize(new Dimension(200, 50)); // 버튼 크기 조절
+            tabButton.addActionListener(new TabButtonListener());
+            tabPanel.add(tabButton, gbc);
         }
         mainPanel.add(tabPanel, BorderLayout.NORTH);
 
@@ -97,6 +106,20 @@ public class MenuPage extends JFrame {
         return itemPanel;
     }
 
+    private class TabButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton clickedButton = (JButton) e.getSource();
+            if (selectedButton != null) {
+                selectedButton.setBackground(Color.BLACK);
+                selectedButton.setForeground(new Color(30, 185, 102));
+            }
+            clickedButton.setBackground(new Color(30, 185, 102));
+            clickedButton.setForeground(Color.BLACK);
+            selectedButton = clickedButton;
+        }
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MenuPage menuPage = new MenuPage();
@@ -104,4 +127,3 @@ public class MenuPage extends JFrame {
         });
     }
 }
-
