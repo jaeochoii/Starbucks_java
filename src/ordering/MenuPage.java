@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MenuPage extends JFrame {
     private JButton selectedButton;
@@ -297,9 +298,13 @@ public class MenuPage extends JFrame {
         });
         plusButton.addActionListener(e -> {
             int quantity = Integer.parseInt(quantityLabel.getText());
-            quantity++;
-            quantityLabel.setText(String.valueOf(quantity));
-            updatePrice(item.getPrice(), quantity, priceLabel);
+            if (quantity < 10) {
+                quantity++;
+                quantityLabel.setText(String.valueOf(quantity));
+                updatePrice(item.getPrice(), quantity, priceLabel);
+            } else {
+                JOptionPane.showMessageDialog(detailDialog, "수량은 10개를 초과할 수 없습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         // 담기
@@ -335,7 +340,7 @@ public class MenuPage extends JFrame {
         orderPanel.add(orderTitleLabel);
         orderPanel.add(Box.createVerticalStrut(30));
 
-        int totalAmount = 0;
+        AtomicInteger totalAmount = new AtomicInteger(0);
 
         for (MenuItem item : orderList) {
             JPanel itemPanel = new JPanel();
@@ -346,23 +351,33 @@ public class MenuPage extends JFrame {
             nameLabel.setFont(new Font("pretendard", Font.BOLD, 20));
             JLabel priceLabel = new JLabel(item.getPrice() + "원");
             priceLabel.setFont(new Font("pretendard", Font.PLAIN, 16));
+            JButton removeButton = new JButton("삭제");
+            removeButton.addActionListener(e -> {
+                orderList.remove(item);
+                showOrderList(); // 주문 내역을 업데이트
+            });
             itemPanel.add(nameLabel);
             itemPanel.add(priceLabel);
+            itemPanel.add(removeButton);
             orderPanel.add(itemPanel);
             orderPanel.add(Box.createVerticalStrut(10));
-            totalAmount += item.getPrice();
+            totalAmount.addAndGet(item.getPrice());
         }
 
-        JButton payButton = new JButton("총 " + totalAmount + "원 결제하기");
+        JButton payButton = new JButton("총 " + totalAmount.get() + "원 결제하기");
         payButton.setBackground(new Color(30, 185, 102));
         payButton.setForeground(new Color(30, 185, 102));
         payButton.setFont(new Font("pretendard", Font.BOLD, 16));
         payButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         payButton.setPreferredSize(new Dimension(400, 200));
         payButton.addActionListener(e -> {
-            ResultPage resultPage = new ResultPage();
-            resultPage.setVisible(true);
-            dispose();
+            if (orderList.isEmpty() || totalAmount.get() == 0) {
+                JOptionPane.showMessageDialog(this, "구매할 항목이 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                ResultPage resultPage = new ResultPage();
+                resultPage.setVisible(true);
+                dispose();
+            }
         });
         orderPanel.add(payButton);
 
@@ -374,6 +389,7 @@ public class MenuPage extends JFrame {
         menuPanel.revalidate();
         menuPanel.repaint();
     }
+
 
     private void updatePrice(int basePrice, int quantity, JLabel priceLabel) {
         int totalPrice = basePrice * quantity;
