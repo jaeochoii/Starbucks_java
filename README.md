@@ -2,6 +2,7 @@
 
 ## 🎯 스타벅스 키오스크 제작 (Java GUI Swing Project)
 
+### 📑 이미지로 미리 보기
 <img width="783" alt="1" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/f243def0-a360-4409-a378-9e3d61af2b01">
 <img width="783" alt="2" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/1877c3bf-1271-4003-8ea3-8a6c128f9bcc">
 <img width="783" alt="3" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/08fc32ad-4a58-42dc-87e7-d02b98a4b197">
@@ -15,3 +16,6 @@
 <img width="783" alt="11" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/a056a728-aa6e-49bf-8e19-8633bf397276">
 <img width="783" alt="12" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/68f24d57-891a-4599-8cf1-104c7ff5b353">
 <img width="783" alt="13" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/6ae3a7b1-3a11-4596-9cd2-2cf739cc7214">
+
+### 🏃🏻‍♀️ 실행 방법
+- 인텔리제이 접속한다. -> Run(F5) 실행한다.
