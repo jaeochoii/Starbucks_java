@@ -1,7 +1,6 @@
 package ordering;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -13,9 +12,8 @@ public class LoginPage extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         JPanel panel = new JPanel(null);
-        panel.setBackground(Color.WHITE); // 배경색을 흰색으로 설정
+        panel.setBackground(Color.WHITE);
 
-        // 로고 이미지 설정
         ImageIcon logoIcon = new ImageIcon(getClass().getResource("/images/mini_logo.png"));
         Image logoImage = logoIcon.getImage();
         Image scaledLogoImage = logoImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -24,7 +22,6 @@ public class LoginPage extends JFrame {
         logoLabel.setBounds(50, 50, 100, 100);
         panel.add(logoLabel);
 
-        // 텍스트 라벨 설정
         JLabel welcomeLabel = new JLabel("<html>안녕하세요.<br>스타벅스입니다.</html>");
         welcomeLabel.setFont(new Font("pretendard", Font.BOLD, 34));
         welcomeLabel.setBounds(50, 170, 400, 100);
@@ -35,7 +32,6 @@ public class LoginPage extends JFrame {
         instructionLabel.setBounds(50, 270, 400, 30);
         panel.add(instructionLabel);
 
-        // 입력 필드 설정
         PlaceholderTextField idField = new PlaceholderTextField("아이디");
         idField.setBounds(450, 250, 400, 50);
         idField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
@@ -46,7 +42,6 @@ public class LoginPage extends JFrame {
         pwField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
         panel.add(pwField);
 
-        // 로그인 버튼
         JButton loginButton = new JButton("로그인하기");
         loginButton.setBounds(450, 500, 150, 40);
         loginButton.setFont(new Font("pretendard", Font.BOLD, 16));
@@ -56,7 +51,7 @@ public class LoginPage extends JFrame {
         loginButton.setBorderPainted(false);
         panel.add(loginButton);
 
-        // 로그인 버튼 클릭 시 메뉴 페이지로 이동
+        // 메뉴 페이지로 이동
         loginButton.addActionListener(e -> {
             dispose();
             new MenuPage().setVisible(true);

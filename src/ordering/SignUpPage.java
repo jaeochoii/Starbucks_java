@@ -11,10 +11,8 @@ public class SignUpPage extends JFrame {
         setSize(1024, 768);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        // 배경 패널 설정
         JPanel panel = new JPanel(null);
 
-        // 로고 이미지 설정
         ImageIcon logoIcon = new ImageIcon(getClass().getResource("/images/mini_logo.png"));
         Image logoImage = logoIcon.getImage();
         Image scaledLogoImage = logoImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -23,13 +21,11 @@ public class SignUpPage extends JFrame {
         logoLabel.setBounds(50, 50, 100, 100);
         panel.add(logoLabel);
 
-        // 텍스트 라벨 설정
         JLabel welcomeLabel = new JLabel("<html>고객님<br>환영합니다!</html>");
         welcomeLabel.setFont(new Font("pretendard", Font.BOLD, 34));
         welcomeLabel.setBounds(50, 170, 300, 100);
         panel.add(welcomeLabel);
 
-        // 입력 필드 라벨과 텍스트 필드 설정
         JLabel idLabel = new JLabel("아이디:");
         JTextField idField = new JTextField();
         JButton checkButton = new JButton("중복확인");
@@ -104,7 +100,6 @@ public class SignUpPage extends JFrame {
         panel.add(dashLabel2);
         panel.add(phoneField3);
 
-        // 회원가입 완료 버튼
         JButton registerButton = new JButton("회원가입 완료");
         registerButton.setBounds(400, 500, 160, 35);
         registerButton.setFont(new Font("pretendard", Font.BOLD, 16));
@@ -114,12 +109,12 @@ public class SignUpPage extends JFrame {
         registerButton.setBorderPainted(false);
         panel.add(registerButton);
 
-        // 회원가입 완료 버튼 클릭 시 MainPage로 이동
+        // MainPage로 이동
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // 현재 창 닫기
-                new MainPage().setVisible(true); // MainPage 열기
+                dispose();
+                new MainPage().setVisible(true);
             }
         });
 

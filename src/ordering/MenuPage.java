@@ -22,7 +22,6 @@ public class MenuPage extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(30, 185, 102));
 
-        // 상단 탭 패널
         JPanel tabPanel = new JPanel(new GridBagLayout());
         tabPanel.setBackground(new Color(30, 185, 102));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -35,7 +34,7 @@ public class MenuPage extends JFrame {
             tabButton.setBackground(new Color(30, 185, 102));
             tabButton.setForeground(new Color(30, 185, 102));
             tabButton.setFont(new Font("pretendard", Font.BOLD, 16));
-            tabButton.setPreferredSize(new Dimension(200, 50)); // 버튼 크기 조절
+            tabButton.setPreferredSize(new Dimension(200, 50));
             tabButton.addActionListener(new TabButtonListener(tab, tabButton));
             tabPanel.add(tabButton, gbc);
             if (tab.equals("COFFEE")) {
@@ -46,8 +45,8 @@ public class MenuPage extends JFrame {
         }
         mainPanel.add(tabPanel, BorderLayout.NORTH);
 
-        // 메뉴 패널
-        menuPanel = new JPanel(new GridLayout(0, 4, 20, 20)); // 한 줄에 4개씩 배치
+        // 메뉴
+        menuPanel = new JPanel(new GridLayout(0, 4, 20, 20));
         menuPanel.setBackground(Color.WHITE);
         scrollPane = new JScrollPane(menuPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -55,10 +54,9 @@ public class MenuPage extends JFrame {
         scrollPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // 기본 메뉴 항목 추가 (COFFEE)
         updateMenuItems("COFFEE");
 
-        // 주문 버튼
+        // 주문
         JButton orderButton = new JButton("ORDER");
         orderButton.setBackground(new Color(30, 185, 102));
         orderButton.setForeground(Color.WHITE);
@@ -163,14 +161,12 @@ public class MenuPage extends JFrame {
         JPanel itemPanel = new JPanel(new BorderLayout());
         itemPanel.setBackground(Color.WHITE);
 
-        // 이미지 라벨
         ImageIcon imageIcon = new ImageIcon(getClass().getResource(item.getImagePath()));
         Image image = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(image));
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         itemPanel.add(imageLabel, BorderLayout.CENTER);
 
-        // 이름과 가격 라벨
         JLabel nameLabel = new JLabel(item.getName());
         nameLabel.setFont(new Font("pretendard", Font.BOLD, 20));
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -185,7 +181,6 @@ public class MenuPage extends JFrame {
 
         itemPanel.add(textPanel, BorderLayout.SOUTH);
 
-        // 아이템 클릭 이벤트 추가
         itemPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showItemDetail(item);
@@ -203,7 +198,7 @@ public class MenuPage extends JFrame {
         JPanel detailPanel = new JPanel(new BorderLayout());
         detailPanel.setBackground(Color.WHITE);
 
-        // 이미지 패널
+        // 이미지 관리
         JPanel imagePanel = new JPanel();
         imagePanel.setBackground(Color.WHITE);
         imagePanel.setPreferredSize(new Dimension(300, 400));
@@ -214,7 +209,7 @@ public class MenuPage extends JFrame {
         imagePanel.add(imageLabel);
         detailPanel.add(imagePanel, BorderLayout.WEST);
 
-        // 상세 정보 패널
+        // 상세 정보
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(Color.WHITE);
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
@@ -225,28 +220,28 @@ public class MenuPage extends JFrame {
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         infoPanel.add(nameLabel);
 
-        // 영어 이름 라벨
+        // 영어 이름
         JLabel englishNameLabel = new JLabel(item.getEnglishName());
         englishNameLabel.setFont(new Font("pretendard", Font.ITALIC, 14));
         englishNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         infoPanel.add(englishNameLabel);
         infoPanel.add(Box.createVerticalStrut(10));
 
-        // 설명 라벨
+        // 설명
         JLabel descriptionLabel = new JLabel("<html>" + item.getDescription().replace("\n", "<br>") + "</html>");
         descriptionLabel.setFont(new Font("pretendard", Font.PLAIN, 14));
         descriptionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         infoPanel.add(descriptionLabel);
         infoPanel.add(Box.createVerticalStrut(10));
 
-        // 가격 라벨
+        // 가격
         JLabel priceLabel = new JLabel(item.getPrice() + "원");
         priceLabel.setFont(new Font("pretendard", Font.BOLD, 18));
         priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         infoPanel.add(priceLabel);
         infoPanel.add(Box.createVerticalStrut(10));
 
-        // COFFEE와 NON-COFFEE 카테고리만 사이즈 선택 추가
+        // COFFEE와 NON-COFFEE 카테고리만 사이즈 선택
         if (item.getCategory().equals("COFFEE") || item.getCategory().equals("NON-COFFEE")) {
             // 사이즈 선택 패널
             JPanel sizePanel = new JPanel();
@@ -265,7 +260,7 @@ public class MenuPage extends JFrame {
             sizePanel.add(ventiButton);
             infoPanel.add(sizePanel);
 
-            // 사이즈 선택 이벤트 추가
+            // 사이즈 선택
             tallButton.addActionListener(e -> {
                 int basePrice = item.getPrice();
                 priceLabel.setText(basePrice + "원");
@@ -280,7 +275,6 @@ public class MenuPage extends JFrame {
             });
         }
 
-        // 수량 조절 패널
         JPanel quantityPanel = new JPanel();
         quantityPanel.setBackground(Color.WHITE);
         quantityPanel.setLayout(new FlowLayout());
@@ -292,7 +286,7 @@ public class MenuPage extends JFrame {
         quantityPanel.add(plusButton);
         infoPanel.add(quantityPanel);
 
-        // 수량 조절 이벤트
+        // 수량 조절
         minusButton.addActionListener(e -> {
             int quantity = Integer.parseInt(quantityLabel.getText());
             if (quantity > 1) {
@@ -308,7 +302,7 @@ public class MenuPage extends JFrame {
             updatePrice(item.getPrice(), quantity, priceLabel);
         });
 
-        // 담기 버튼
+        // 담기
         JButton addButton = new JButton("담기");
         addButton.setBackground(new Color(30, 185, 102));
         addButton.setForeground(Color.BLACK);
@@ -334,16 +328,15 @@ public class MenuPage extends JFrame {
         orderPanel.setBackground(Color.WHITE);
         orderPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // 주문 내역 라벨
+        // 주문 내역
         JLabel orderTitleLabel = new JLabel("주문 내역입니다.");
         orderTitleLabel.setFont(new Font("pretendard", Font.BOLD, 42));
         orderTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         orderPanel.add(orderTitleLabel);
-        orderPanel.add(Box.createVerticalStrut(30)); // 여백 추가
+        orderPanel.add(Box.createVerticalStrut(30));
 
         int totalAmount = 0;
 
-        // 주문 목록
         for (MenuItem item : orderList) {
             JPanel itemPanel = new JPanel();
             itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
@@ -356,22 +349,26 @@ public class MenuPage extends JFrame {
             itemPanel.add(nameLabel);
             itemPanel.add(priceLabel);
             orderPanel.add(itemPanel);
-            orderPanel.add(Box.createVerticalStrut(10)); // 여백 추가
+            orderPanel.add(Box.createVerticalStrut(10));
             totalAmount += item.getPrice();
         }
 
-        // 총 금액 라벨
         JButton payButton = new JButton("총 " + totalAmount + "원 결제하기");
         payButton.setBackground(new Color(30, 185, 102));
         payButton.setForeground(new Color(30, 185, 102));
         payButton.setFont(new Font("pretendard", Font.BOLD, 16));
         payButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         payButton.setPreferredSize(new Dimension(400, 200));
+        payButton.addActionListener(e -> {
+            ResultPage resultPage = new ResultPage();
+            resultPage.setVisible(true);
+            dispose();
+        });
         orderPanel.add(payButton);
 
-        JPanel wrapperPanel = new JPanel(new GridBagLayout()); // 가운데 배치용 래퍼 패널
-        wrapperPanel.setBackground(Color.WHITE); // 메뉴 패널 배경색과 맞추기
-        wrapperPanel.add(orderPanel, new GridBagConstraints()); // 패널을 GridBagLayout 중앙에 배치
+        JPanel wrapperPanel = new JPanel(new GridBagLayout());
+        wrapperPanel.setBackground(Color.WHITE);
+        wrapperPanel.add(orderPanel, new GridBagConstraints());
 
         menuPanel.add(orderPanel);
         menuPanel.revalidate();
