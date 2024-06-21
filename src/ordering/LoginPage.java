@@ -6,6 +6,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class LoginPage extends JFrame {
+    private JLabel errorLabel;
+
     public LoginPage() {
         setTitle("로그인");
         setSize(1024, 768);
@@ -42,6 +44,12 @@ public class LoginPage extends JFrame {
         pwField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
         panel.add(pwField);
 
+        errorLabel = new JLabel("");
+        errorLabel.setFont(new Font("pretendard", Font.PLAIN, 14));
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setBounds(450, 420, 400, 30);
+        panel.add(errorLabel);
+
         JButton loginButton = new JButton("로그인하기");
         loginButton.setBounds(450, 500, 150, 40);
         loginButton.setFont(new Font("pretendard", Font.BOLD, 16));
@@ -51,10 +59,17 @@ public class LoginPage extends JFrame {
         loginButton.setBorderPainted(false);
         panel.add(loginButton);
 
-        // 메뉴 페이지로 이동
+        // 로그인 버튼 클릭 이벤트
         loginButton.addActionListener(e -> {
-            dispose();
-            new MenuPage().setVisible(true);
+            String id = idField.getText();
+            String password = new String(pwField.getPassword());
+
+            if (id.equals("admin") && password.equals("1234")) {
+                dispose();
+                new MenuPage().setVisible(true);
+            } else {
+                errorLabel.setText("아이디는 admin 비밀번호는 1234 입니다.");
+            }
         });
 
         add(panel);
