@@ -4,11 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuPage extends JFrame {
     private JButton selectedButton;
     private JPanel menuPanel;
     private JScrollPane scrollPane;
+    private List<MenuItem> orderList = new ArrayList<>();
 
     public MenuPage() {
         setTitle("Starbucks 메뉴");
@@ -26,7 +29,7 @@ public class MenuPage extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
 
-        String[] tabs = {"COFFEE", "NON-COFFEE", "FOOD", "PRODUCT", "MY-SHOP"};
+        String[] tabs = {"COFFEE", "NON-COFFEE", "FOOD", "PRODUCT", "MY-ORDER"};
         for (String tab : tabs) {
             JButton tabButton = new JButton(tab);
             tabButton.setBackground(new Color(30, 185, 102));
@@ -71,6 +74,11 @@ public class MenuPage extends JFrame {
 
     private void updateMenuItems(String category) {
         menuPanel.removeAll();
+        if (category.equals("MY-ORDER")) {
+            showOrderList();
+            return;
+        }
+
         MenuItem[] items;
         switch (category) {
             case "COFFEE":
@@ -306,12 +314,68 @@ public class MenuPage extends JFrame {
         addButton.setForeground(Color.BLACK);
         addButton.setFont(new Font("pretendard", Font.PLAIN, 14));
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addButton.addActionListener(e -> {
+            orderList.add(item);
+            detailDialog.dispose();
+        });
         infoPanel.add(addButton);
 
         detailPanel.add(infoPanel, BorderLayout.CENTER);
 
         detailDialog.add(detailPanel);
         detailDialog.setVisible(true);
+    }
+
+    private void showOrderList() {
+        menuPanel.removeAll();
+
+        JPanel orderPanel = new JPanel();
+        orderPanel.setLayout(new BoxLayout(orderPanel, BoxLayout.Y_AXIS));
+        orderPanel.setBackground(Color.WHITE);
+        orderPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // 주문 내역 라벨
+        JLabel orderTitleLabel = new JLabel("주문 내역입니다.");
+        orderTitleLabel.setFont(new Font("pretendard", Font.BOLD, 42));
+        orderTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        orderPanel.add(orderTitleLabel);
+        orderPanel.add(Box.createVerticalStrut(30)); // 여백 추가
+
+        int totalAmount = 0;
+
+        // 주문 목록
+        for (MenuItem item : orderList) {
+            JPanel itemPanel = new JPanel();
+            itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
+            itemPanel.setBackground(Color.WHITE);
+            itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel nameLabel = new JLabel(item.getName());
+            nameLabel.setFont(new Font("pretendard", Font.BOLD, 20));
+            JLabel priceLabel = new JLabel(item.getPrice() + "원");
+            priceLabel.setFont(new Font("pretendard", Font.PLAIN, 16));
+            itemPanel.add(nameLabel);
+            itemPanel.add(priceLabel);
+            orderPanel.add(itemPanel);
+            orderPanel.add(Box.createVerticalStrut(10)); // 여백 추가
+            totalAmount += item.getPrice();
+        }
+
+        // 총 금액 라벨
+        JButton payButton = new JButton("총 " + totalAmount + "원 결제하기");
+        payButton.setBackground(new Color(30, 185, 102));
+        payButton.setForeground(new Color(30, 185, 102));
+        payButton.setFont(new Font("pretendard", Font.BOLD, 16));
+        payButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        payButton.setPreferredSize(new Dimension(400, 200));
+        orderPanel.add(payButton);
+
+        JPanel wrapperPanel = new JPanel(new GridBagLayout()); // 가운데 배치용 래퍼 패널
+        wrapperPanel.setBackground(Color.WHITE); // 메뉴 패널 배경색과 맞추기
+        wrapperPanel.add(orderPanel, new GridBagConstraints()); // 패널을 GridBagLayout 중앙에 배치
+
+        menuPanel.add(orderPanel);
+        menuPanel.revalidate();
+        menuPanel.repaint();
     }
 
     private void updatePrice(int basePrice, int quantity, JLabel priceLabel) {
