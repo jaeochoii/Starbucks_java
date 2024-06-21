@@ -30,11 +30,16 @@ public class MenuPage extends JFrame {
         for (String tab : tabs) {
             JButton tabButton = new JButton(tab);
             tabButton.setBackground(new Color(30, 185, 102));
-            tabButton.setForeground(Color.WHITE);
+            tabButton.setForeground(new Color(30, 185, 102));
             tabButton.setFont(new Font("pretendard", Font.BOLD, 16));
             tabButton.setPreferredSize(new Dimension(200, 50)); // 버튼 크기 조절
-            tabButton.addActionListener(new TabButtonListener(tab));
+            tabButton.addActionListener(new TabButtonListener(tab, tabButton));
             tabPanel.add(tabButton, gbc);
+            if (tab.equals("COFFEE")) {
+                selectedButton = tabButton;
+                selectedButton.setBackground(new Color(30, 185, 102));
+                selectedButton.setForeground(Color.BLACK);
+            }
         }
         mainPanel.add(tabPanel, BorderLayout.NORTH);
 
@@ -298,8 +303,8 @@ public class MenuPage extends JFrame {
         // 담기 버튼
         JButton addButton = new JButton("담기");
         addButton.setBackground(new Color(30, 185, 102));
-        addButton.setForeground(Color.WHITE);
-        addButton.setFont(new Font("pretendard", Font.BOLD, 16));
+        addButton.setForeground(Color.BLACK);
+        addButton.setFont(new Font("pretendard", Font.PLAIN, 14));
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         infoPanel.add(addButton);
 
@@ -316,9 +321,11 @@ public class MenuPage extends JFrame {
 
     private class TabButtonListener implements ActionListener {
         private String category;
+        private JButton button;
 
-        public TabButtonListener(String category) {
+        public TabButtonListener(String category, JButton button) {
             this.category = category;
+            this.button = button;
         }
 
         @Override
@@ -326,9 +333,9 @@ public class MenuPage extends JFrame {
             JButton clickedButton = (JButton) e.getSource();
             if (selectedButton != null) {
                 selectedButton.setBackground(new Color(30, 185, 102));
-                selectedButton.setForeground(Color.WHITE);
+                selectedButton.setForeground(new Color(30, 185, 102));
             }
-            clickedButton.setBackground(Color.WHITE);
+            clickedButton.setBackground(new Color(30, 185, 102));
             clickedButton.setForeground(Color.BLACK);
             selectedButton = clickedButton;
 
