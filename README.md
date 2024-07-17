@@ -16,6 +16,3 @@
 <img width="783" alt="11" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/a056a728-aa6e-49bf-8e19-8633bf397276">
 <img width="783" alt="12" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/68f24d57-891a-4599-8cf1-104c7ff5b353">
 <img width="783" alt="13" src="https://github.com/jaeochoii/Starbucks_java/assets/103018984/6ae3a7b1-3a11-4596-9cd2-2cf739cc7214">
-
-### 🏃🏻‍♀️ 실행 방법
-- 인텔리제이 접속한다. -> Run(F5) 실행한다.
